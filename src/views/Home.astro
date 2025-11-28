@@ -1,0 +1,54 @@
+---
+import Hero from '../components/Hero.astro';
+import Navbar from '../components/Navbar.astro';
+import Grid from '../components/Grid.astro';
+import Footer from '../components/Footer.astro';
+
+const images = [
+  {
+    id: "ignoto-1",
+    src: "https://picsum.photos/seed/ignoto-1/800/1200",
+    alt: "immagine 1",
+  },
+  {
+    id: "ignoto-2",
+    src: "https://picsum.photos/seed/ignoto-2/900/700",
+    alt: "immagine 2",
+  },
+  {
+    id: "ignoto-3",
+    src: "https://picsum.photos/seed/ignoto-3/600/900",
+    alt: "immagine 3",
+  },
+  {
+    id: "ignoto-4",
+    src: "https://picsum.photos/seed/ignoto-4/1000/800",
+    alt: "immagine 4",
+  },
+  {
+    id: "ignoto-5",
+    src: "https://picsum.photos/seed/ignoto-5/700/700",
+    alt: "immagine 5",
+  },
+  {
+    id: "ignoto-6",
+    src: "https://picsum.photos/seed/ignoto-6/900/1200",
+    alt: "immagine 6",
+  },
+  {
+    id: "ignoto-7",
+    src: "https://picsum.photos/seed/ignoto-7/1100/900",
+    alt: "immagine 7",
+  },
+  {
+    id: "ignoto-8",
+    src: "https://picsum.photos/seed/ignoto-8/800/800",
+    alt: "immagine 8",
+  },
+];
+---
+
+<Hero />
+<Navbar />
+<Grid images={images} basePath="/progetti" />
+<Footer />

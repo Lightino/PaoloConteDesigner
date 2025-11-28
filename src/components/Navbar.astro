@@ -1,0 +1,144 @@
+---
+const navItems = [
+  { label: "about" },
+  {
+    label: "progetti",
+    subItems: [
+      "accessory",
+      "furniture",
+      "kitchen",
+      "lighting",
+      "bathroom",
+      "pattern",
+      "exhibition",
+    ],
+  },
+  { label: "direzione artistica" },
+  { label: "ricerca personale" },
+  { label: "pubblicazioni" },
+  { label: "clienti" },
+  { label: "archivio" },
+];
+
+const slugify = (label) =>
+  label
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+---
+
+<nav
+  class="sticky top-0 z-40 w-full bg-white/90 backdrop-blur text-slate-900 lowercase animate-fade-down animate-delay-200"
+>
+  <div class="max-w-5xl mx-auto">
+    <!-- MOBILE -->
+    <details class="md:hidden group">
+      <summary
+        class="flex items-center justify-end px-4 py-3 cursor-pointer list-none"
+      >
+        <span class="sr-only">apri il menu di navigazione</span>
+        <span class="flex flex-col justify-center gap-[5px]">
+          <span
+            class="h-[1px] w-6 bg-slate-900 transition-transform duration-300 group-open:translate-y-[3px] group-open:rotate-45"
+          ></span>
+          <span
+            class="h-[1px] w-6 bg-slate-900 transition-transform duration-300 group-open:-translate-y-[3px] group-open:-rotate-45"
+          ></span>
+        </span>
+      </summary>
+
+      <!-- Menu mobile -->
+      <div
+        class="px-4 pb-4 border-t border-slate-200 mt-1 overflow-hidden group-open:animate-fade-down group-open:animate-duration-300 group-open:animate-ease-out"
+      >
+        <ul class="mt-3 flex flex-col gap-2 text-base">
+          {navItems.map((item) => (
+            <li>
+              {item.subItems ? (
+                <details>
+                  <summary
+                    class="flex items-center justify-between cursor-pointer list-none text-base text-slate-800"
+                  >
+                    <span>{item.label}</span>
+                    <span class="text-xs text-slate-500">+</span>
+                  </summary>
+                  <ul class="mt-2 ml-3 flex flex-col gap-1">
+                    {item.subItems.map((sub) => (
+                      <li>
+                        <a
+                          href={`#${slugify(item.label)}-${slugify(sub)}`}
+                          class="block py-0.5 text-base text-slate-600 hover:text-slate-900 transition-colors"
+                        >
+                          {sub}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : (
+                <a
+                  href={`#${slugify(item.label)}`}
+                  class="block py-1 text-base text-slate-800 hover:text-slate-900 transition-colors"
+                >
+                  {item.label}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </details>
+
+    <!-- DESKTOP -->
+    <div class="hidden md:flex items-center justify-center px-4 py-3">
+      <ul class="flex flex-wrap justify-center gap-6 text-base">
+        {navItems.map((item) =>
+          item.subItems ? (
+            <li class="relative">
+              <div
+                class="peer flex items-center gap-1 text-base text-slate-700 hover:text-slate-900 cursor-pointer select-none transition-colors"
+              >
+                <span>{item.label}</span>
+                <span class="text-xs text-slate-500">▾</span>
+              </div>
+
+              <!-- Sottomenu -->
+              <div
+                class="invisible opacity-0 translate-y-2 absolute left-1/2 top-full -translate-x-1/2
+                        transition-all duration-200 ease-out
+                        peer-hover:visible peer-hover:opacity-100 peer-hover:translate-y-0
+                        hover:visible hover:opacity-100 hover:translate-y-0
+                        animate-fade-down animate-duration-200 animate-ease-out"
+              >
+                <ul
+                  class="flex flex-row items-center gap-4 text-sm bg-white px-4 py-2 "
+                >
+                  {item.subItems.map((sub) => (
+                    <li>
+                      <a
+                        href={`#${slugify(item.label)}-${slugify(sub)}`}
+                        class="whitespace-nowrap text-slate-600 hover:text-slate-900 transition-colors border-b border-transparent hover:border-slate-900 pb-[1px]"
+                      >
+                        {sub}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ) : (
+            <li>
+              <a
+                href={`#${slugify(item.label)}`}
+                class="relative text-base text-slate-700 hover:text-slate-900 transition-colors after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[1px] after:w-0 after:bg-slate-900 after:transition-all after:duration-300 hover:after:w-full"
+              >
+                {item.label}
+              </a>
+            </li>
+          )
+        )}
+      </ul>
+    </div>
+  </div>
+</nav>

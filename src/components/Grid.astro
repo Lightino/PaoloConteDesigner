@@ -1,0 +1,57 @@
+---
+type ImageItem = {
+  id: string;
+  src: string;
+  alt?: string;
+};
+
+interface Props {
+  images: ImageItem[];
+  basePath?: string; // es: "/progetti"
+}
+
+const { images = [], basePath = "/progetti" } = Astro.props as Props;
+
+// pattern semplice per celle irregolari in base all'indice
+const getItemClasses = (index: number) => {
+  if (index % 7 === 0) return "md:col-span-2 md:row-span-2";
+  if (index % 7 === 3) return "md:col-span-2";
+  if (index % 7 === 5) return "md:row-span-2";
+  return "";
+};
+---
+
+<section class="w-full bg-white">
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <div
+      class="grid gap-4 grid-cols-2 md:grid-cols-4 auto-rows-[140px] md:auto-rows-[180px]"
+    >
+      {
+        images.map((image, index) => (
+          <a
+            href={`${basePath}/${encodeURIComponent(image.id)}`}
+            class:list={[
+              "group relative block h-full w-full overflow-hidden rounded-md bg-slate-100 animate-fade-down",
+              getItemClasses(index)
+            ].filter(Boolean)}
+            style={`animation-delay: ${(index + 1) * 300}ms;`}
+          >
+            <figure class="h-full w-full">
+              <img
+                src={image.src}
+                alt={image.alt || ""}
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </figure>
+
+            <!-- Small interaction hint on hover (optional) -->
+            <span
+              class="pointer-events-none absolute inset-0 border border-transparent group-hover:border-slate-300/70 transition-colors duration-300"
+            ></span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

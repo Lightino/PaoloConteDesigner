@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+
+const name = "Paolo Conte";
+const title = "Product Designer";
+---
+
+<header class="w-full bg-white text-slate-900 animate-fade-down">
+  <div class="max-w-7xl mx-auto px-4 min-h-[40vh] flex items-center">
+    <div
+      class="w-full flex flex-col items-center gap-6 py-8
+             sm:gap-8 sm:py-10
+             md:flex-row md:items-center md:justify-between md:gap-4 md:py-6"
+    >
+      <!-- Socials -->
+      <div
+        class="flex items-center gap-3 text-sm text-slate-600
+               order-2
+               md:order-1 md:flex-none"
+      >
+        <a
+          href="https://instagram.com/tuo-username"
+          aria-label="Instagram"
+          class="hover:text-slate-900 transition"
+        >
+          <Icon name="simple-icons:instagram" class="h-5 w-5" />
+        </a>
+
+        <span class="text-slate-300">/</span>
+
+        <a
+          href="https://www.linkedin.com/in/tuo-username"
+          aria-label="LinkedIn"
+          class="hover:text-slate-900 transition"
+        >
+          <Icon name="simple-icons:linkedin" class="h-5 w-5" />
+        </a>
+
+        <span class="text-slate-300">/</span>
+
+        <a
+          href="https://x.com/tuo-username"
+          aria-label="X"
+          class="hover:text-slate-900 transition"
+        >
+          <Icon name="simple-icons:x" class="h-5 w-5" />
+        </a>
+      </div>
+
+      <!-- Nome + sottotitolo -->
+      <div class="order-1 flex-1 flex flex-col items-center text-center">
+        <span
+          class="text-lg font-semibold tracking-[0.12em] uppercase
+                 sm:text-2xl sm:tracking-[0.18em]
+                 md:text-3xl"
+        >
+          {name}
+        </span>
+        <span
+          class="mt-2 text-[11px] text-slate-500 tracking-[0.22em] uppercase
+                 sm:text-xs sm:tracking-[0.3em]
+                 md:text-sm"
+        >
+          {title}
+        </span>
+      </div>
+
+      <!-- Lingue -->
+      <div
+        class="flex items-center justify-center gap-2 text-xs text-slate-700
+               order-3
+               md:order-3 md:flex-none"
+      >
+        <button
+          class="px-4 py-1.5 rounded-full border border-slate-900 text-slate-900"
+        >
+          ITA
+        </button>
+        <button
+          class="px-4 py-1.5 rounded-full border border-slate-300 hover:border-slate-900 hover:text-slate-900 transition"
+        >
+          ENG
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

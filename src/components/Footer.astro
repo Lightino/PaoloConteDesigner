@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+
+const name = "Paolo Conte";
+const title = "Product Designer";
+const year = new Date().getFullYear();
+
+const navItems = [
+  "about",
+  "progetti",
+  "direzione artistica",
+  "ricerca personale",
+  "pubblicazioni",
+  "clienti",
+  "archivio",
+];
+
+const slugify = (label: string) =>
+  label
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "-");
+---
+
+<footer class="w-full border-t border-slate-200 bg-white text-slate-900 mt-16">
+  <div
+    class="max-w-7xl mx-auto px-4 py-10
+           flex flex-col gap-8
+           md:flex-row md:items-start md:justify-between"
+  >
+    <!-- Nome + ruolo -->
+    <div class="flex flex-col gap-2">
+      <span
+        class="text-sm font-semibold tracking-[0.18em] uppercase"
+      >
+        {name}
+      </span>
+      <span
+        class="text-xs text-slate-500 tracking-[0.3em] uppercase"
+      >
+        {title}
+      </span>
+    </div>
+
+    <!-- Social + copyright -->
+    <div
+      class="flex flex-col items-start gap-4 text-sm
+             md:items-end"
+    >
+      <div class="flex items-center gap-3 text-slate-600">
+        <a
+          href="https://instagram.com/tuo-username"
+          aria-label="Instagram"
+          class="hover:text-slate-900 transition"
+        >
+          <Icon name="simple-icons:instagram" class="h-5 w-5" />
+        </a>
+
+        <span class="text-slate-300">/</span>
+
+        <a
+          href="https://www.linkedin.com/in/tuo-username"
+          aria-label="LinkedIn"
+          class="hover:text-slate-900 transition"
+        >
+          <Icon name="simple-icons:linkedin" class="h-5 w-5" />
+        </a>
+
+        <span class="text-slate-300">/</span>
+
+        <a
+          href="https://x.com/tuo-username"
+          aria-label="X"
+          class="hover:text-slate-900 transition"
+        >
+          <Icon name="simple-icons:x" class="h-5 w-5" />
+        </a>
+      </div>
+
+      <div class="text-xs text-slate-400 lowercase">
+        <p>© {year} {name}. all rights reserved.</p>
+        <p>Made with 🩷 by <a class="!text-blue-950 hover:underline" href="https://stefanoravera.netlify.app" target="_blank">Light</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
