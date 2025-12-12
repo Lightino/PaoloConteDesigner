@@ -1,4 +1,6 @@
 ---
+import { getCollection } from "astro:content";
+
 type ImageItem = {
   id: string;
   src: string;
@@ -6,13 +8,29 @@ type ImageItem = {
 };
 
 interface Props {
-  images: ImageItem[];
   basePath?: string; // es: "/progetti"
 }
 
-const { images = [], basePath = "/progetti" } = Astro.props as Props;
+const { basePath = "/progetti" } = Astro.props as Props;
 
-// pattern semplice per celle irregolari in base all'indice
+// prende solo i post con heroImage (URL o path)
+const posts = await getCollection("posts", ({ data }) => !!data.heroImage);
+
+// sort robusto: pubDate può essere Date o stringa
+const toTime = (d: unknown) => {
+  if (d instanceof Date) return d.getTime();
+  if (typeof d === "string") return new Date(d).getTime();
+  return 0;
+};
+
+posts.sort((a, b) => toTime(b.data.pubDate) - toTime(a.data.pubDate));
+
+const images: ImageItem[] = posts.map((post) => ({
+  id: post.slug,
+  src: post.data.heroImage as string,
+  alt: post.data.title as string,
+}));
+
 const getItemClasses = (index: number) => {
   if (index % 7 === 0) return "md:col-span-2 md:row-span-2";
   if (index % 7 === 3) return "md:col-span-2";
@@ -23,16 +41,14 @@ const getItemClasses = (index: number) => {
 
 <section class="w-full bg-white">
   <div class="max-w-5xl mx-auto px-4 py-10">
-    <div
-      class="grid gap-4 grid-cols-2 md:grid-cols-4 auto-rows-[140px] md:auto-rows-[180px]"
-    >
+    <div class="grid gap-4 grid-cols-2 md:grid-cols-4 auto-rows-[140px] md:auto-rows-[180px]">
       {
         images.map((image, index) => (
           <a
             href={`${basePath}/${encodeURIComponent(image.id)}`}
             class:list={[
               "group relative block h-full w-full overflow-hidden rounded-md bg-slate-100 animate-fade-down",
-              getItemClasses(index)
+              getItemClasses(index),
             ].filter(Boolean)}
             style={`animation-delay: ${(index + 1) * 300}ms;`}
           >
@@ -45,10 +61,7 @@ const getItemClasses = (index: number) => {
               />
             </figure>
 
-            <!-- Small interaction hint on hover (optional) -->
-            <span
-              class="pointer-events-none absolute inset-0 border border-transparent group-hover:border-slate-300/70 transition-colors duration-300"
-            ></span>
+            <span class="pointer-events-none absolute inset-0 border border-transparent group-hover:border-slate-300/70 transition-colors duration-300"></span>
           </a>
         ))
       }
